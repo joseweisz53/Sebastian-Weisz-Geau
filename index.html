@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sebastián Weisz — Arquitecto</title>
+<meta name="description" content="Estudio de arquitectura de Sebastián Weisz, Buenos Aires.">
+<style>
+  :root{
+    --bg: #FFFFFF;
+    --fg: #111111;
+    --fg-soft: rgba(17,17,17,0.64);
+    --fg-dim: rgba(17,17,17,0.4);
+    --line: rgba(17,17,17,0.14);
+    --line-strong: rgba(17,17,17,0.28);
+    --max: 1440px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a{ color: inherit; }
+  img{ display:block; width:100%; height:100%; object-fit: cover; }
+  .wrap{ max-width: var(--max); margin: 0 auto; padding: 0 48px; }
+
+  /* ---------- Nav ---------- */
+  .horizon{ position: sticky; top:0; z-index: 50; background: var(--bg); }
+  .horizon-line{ height:1px; width:100%; background: var(--line-strong); }
+  .nav-row{
+    max-width: var(--max); margin:0 auto; padding: 18px 48px;
+    display:flex; align-items:center; justify-content:space-between;
+    flex-wrap: wrap; row-gap: 10px;
+  }
+  .mark{
+    display:flex; align-items:center; gap: 14px;
+    text-decoration:none; white-space:nowrap;
+  }
+  .mark span{
+    font-family:Arial, Helvetica, sans-serif; font-weight: 600; font-size: 14px;
+    letter-spacing: 0.01em;
+  }
+  .nav-links{ display:flex; flex-wrap: wrap; justify-content: flex-end; row-gap: 8px; gap: 40px; list-style:none; margin:0; padding:0; }
+  .nav-links a{
+    text-decoration:none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family:Arial, Helvetica, sans-serif; font-weight: 500;
+    color: var(--fg-soft);
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: color .25s ease, border-color .25s ease;
+  }
+  .nav-links a:hover{ color: var(--fg); border-color: var(--fg); }
+
+  /* ---------- Hero ---------- */
+  .hero-frame{
+    position: relative; width: 100%; aspect-ratio: 16/9; max-height: 82vh; overflow: hidden;
+  }
+  .hero-frame img{
+    width:100%; height:100%; object-fit: cover;
+    filter: grayscale(0.25) contrast(1.05);
+    transform: scale(1.03);
+    animation: heroreveal 1.8s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes heroreveal{
+    from{ transform: scale(1.09); filter: grayscale(0.6) brightness(0.9); }
+    to{ transform: scale(1.03); filter: grayscale(0.25) contrast(1.05); }
+  }
+  .hero-frame::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:28%; z-index:1;
+    background: linear-gradient(0deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0) 100%);
+    pointer-events:none;
+  }
+  .hero-caption{
+    position:absolute; left: 48px; bottom: 24px; z-index:2;
+    font-family:Arial, Helvetica, sans-serif; font-size: 15px; letter-spacing: 0.02em;
+    color: #F4F3EE; font-weight:600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  }
+  @media (max-width: 560px){
+    .hero-caption{ left: 20px; bottom: 16px; font-size: 12px; }
+  }
+
+  /* ---------- Section shells ---------- */
+  section{ padding: 120px 0; }
+
+  /* ---------- Studio statement ---------- */
+  .statement{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 100px; align-items: start; border-top: 1px solid var(--line); padding-top: 60px; }
+  .statement h2{ font-size: clamp(26px, 2.7vw, 38px); line-height: 1.35; margin: 0; color: var(--fg); font-weight: 600; }
+  .statement h2 em{ font-style: normal; color: var(--fg-dim); font-weight: 600; }
+  .statement-side{ padding-top: 6px; }
+  .statement-side p{ font-size: 15.5px; line-height: 1.8; color: var(--fg-soft); margin: 0 0 22px; font-weight: 300; }
+  .stat-row{ display:flex; gap: 48px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 28px; }
+  .stat-row div{ flex:1; }
+  .stat-num{ font-family:Arial, Helvetica, sans-serif; font-size: 30px; font-weight:700; }
+  .stat-label{ font-family:Arial, Helvetica, sans-serif; font-size: 11px; color: var(--fg-dim); letter-spacing: 0.08em; text-transform:uppercase; margin-top: 6px; }
+
+  /* ---------- Proyectos (bandas verticales) ---------- */
+  .projects-head{ margin-bottom: 56px; display:flex; justify-content:space-between; align-items:flex-end; gap: 24px; flex-wrap: wrap; }
+  .projects-head h2{ font-size: clamp(28px,3.2vw,42px); margin:0; font-weight:700; letter-spacing:-0.01em; }
+  .projects-head p{ color: var(--fg-soft); font-weight:300; max-width: 420px; font-size:14.5px; line-height:1.7; margin:0; }
+
+  .carousel-outer{
+    position: relative;
+    width: 100%;
+  }
+
+  @media (min-width: 901px){
+    .carousel-outer{
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+  }
+
+  .carousel-track{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  @media (max-width: 560px){
+    .carousel-track{ grid-template-columns: 1fr; }
+  }
+
+  .carousel-item{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1280/540;
+    overflow: hidden;
+  }
+  .carousel-item img{
+    width:100%; height:100%; object-fit: cover;
+    cursor: zoom-in;
+    filter: grayscale(1) contrast(1.05) brightness(0.96);
+    transition: filter .7s ease;
+  }
+  @media (hover: hover) and (pointer: fine){
+    .carousel-item:hover img{ filter: grayscale(0) contrast(1) brightness(1); }
+  }
+  .carousel-idx{
+    position:absolute; top: 16px; left: 18px; z-index:2;
+    font-family:Arial, Helvetica, sans-serif; font-size: 11px; letter-spacing: 0.1em;
+    color: rgba(244,243,238,0.75); font-weight:500;
+  }
+  .carousel-item.hidden-extra{ display:none; }
+  .carousel-item::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:38%; z-index:1;
+    background: linear-gradient(0deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0) 100%);
+    pointer-events:none;
+  }
+  .carousel-caption{
+    position:absolute; left: 18px; bottom: 14px; z-index:2;
+    font-family:Arial, Helvetica, sans-serif; font-size: 13px; letter-spacing: 0.02em;
+    color: #F4F3EE; font-weight:600;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox{
+    position: fixed; inset: 0; z-index: 400;
+    background: rgba(5,5,5,0.93);
+    display: none; align-items: center; justify-content: center;
+    padding: 32px;
+  }
+  .lightbox.open{ display: flex; }
+  .lightbox img{
+    max-width: 92vw; max-height: 88vh; width: auto; height: auto;
+    object-fit: contain;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .lightbox-close{
+    position: absolute; top: 22px; right: 26px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(244,243,238,0.08);
+    border: 1px solid rgba(244,243,238,0.35);
+    color: var(--fg);
+    font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 1;
+    display:flex; align-items:center; justify-content:center;
+    cursor: pointer;
+  }
+  .lightbox-close:hover{ background: rgba(244,243,238,0.18); }
+  @media (max-width: 560px){
+    .lightbox{ padding: 16px; }
+    .lightbox-close{ top: 14px; right: 14px; width: 36px; height: 36px; font-size: 18px; }
+  }
+
+  /* ---------- Página de proyecto (overlay) ---------- */
+  .project-page{
+    position: fixed; inset: 0; z-index: 300;
+    background: var(--bg);
+    display: none;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .project-page.open{ display: block; }
+  .project-page-close{
+    position: fixed; top: 22px; right: 26px; z-index: 310;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    border: 1px solid var(--line-strong);
+    color: var(--fg);
+    font-family: Arial, Helvetica, sans-serif; font-size: 20px; line-height: 1;
+    display:flex; align-items:center; justify-content:center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+  }
+  .project-page-close:hover{ background: #fff; }
+  @media (max-width: 560px){
+    .project-page-close{ top: 14px; right: 14px; width: 34px; height: 34px; font-size: 16px; }
+  }
+
+  .project-page-hero{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 70vh;
+    overflow: hidden;
+  }
+  .project-page-hero img{
+    width:100%; height:100%; object-fit: cover;
+  }
+
+  .project-page-body{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+  .project-page-title{
+    font-family: Arial, Helvetica, sans-serif; font-weight: 700;
+    font-size: clamp(26px, 4vw, 40px);
+    margin: 0 0 8px;
+    color: var(--fg);
+  }
+  .project-page-meta{
+    font-family: Arial, Helvetica, sans-serif; font-size: 13px; letter-spacing: 0.05em;
+    color: var(--fg-dim); margin: 0 0 36px;
+  }
+  .project-page-text p{
+    font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.8;
+    color: var(--fg-soft); margin: 0 0 20px; font-weight: 400;
+  }
+  .project-page-gallery{
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px;
+    margin-top: 48px;
+  }
+  .project-page-gallery div{
+    aspect-ratio: 1280/540; overflow: hidden;
+  }
+  .project-page-gallery img{
+    width:100%; height:100%; object-fit: cover;
+  }
+  @media (max-width: 560px){
+    .project-page-gallery{ grid-template-columns: 1fr; }
+    .project-page-body{ padding: 40px 18px 70px; }
+  }
+
+  /* ---------- Contact ---------- */
+  .contact{ background: var(--bg); color: var(--fg); padding: 90px 0 90px; border-top: 1px solid var(--line); }
+  .contact .wrap{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 80px; align-items:center; }
+  .contact-links{ display:flex; flex-direction:column; gap:0; }
+  .contact-links a{
+    text-decoration:none; font-family:Arial, Helvetica, sans-serif; font-size: clamp(20px,2.2vw,28px);
+    color:var(--fg); padding: 12px 0; border-top: 1px solid var(--line);
+    display:flex; justify-content:space-between; align-items:center;
+    font-weight: 600;
+    transition: color .25s ease, padding-left .25s ease;
+  }
+  .contact-links a:last-child{ border-bottom: 1px solid var(--line); }
+  .contact-links a:hover{ color: var(--fg-soft); padding-left: 10px; }
+  .contact-links a small{
+    font-family:Arial, Helvetica, sans-serif; font-size: 10px; letter-spacing:0.1em; text-transform:uppercase;
+    color: var(--fg-dim); font-weight:500;
+  }
+  .contact-side p{ font-weight:300; font-size: 14.5px; line-height:1.85; color: var(--fg-soft); margin:0; }
+
+  footer{
+    background: var(--bg); color: var(--fg-dim);
+    padding: 26px 0; border-top: 1px solid var(--line);
+    font-size: 11px; letter-spacing:0.06em; text-transform: uppercase;
+    font-family:Arial, Helvetica, sans-serif; font-weight: 500;
+  }
+  footer .wrap{ display:flex; justify-content:space-between; align-items:center; }
+  footer .foot-mark{ display:flex; align-items:center; gap: 10px; }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{ opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s ease; }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal, .hero-frame img { transition:none !important; animation:none !important; transform:none !important; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    .wrap{ padding: 0 24px; }
+    .nav-row{ padding: 16px 24px; }
+    .nav-links{ gap: 20px; }
+    .nav-links a{ font-size: 11px; }
+    .statement{ grid-template-columns: 1fr; gap: 40px; }
+    .contact .wrap{ grid-template-columns: 1fr; gap: 36px; }
+    section{ padding: 80px 0; }
+  }
+
+  @media (max-width: 640px){
+    .mark span{ display:none; }
+  }
+
+  @media (max-width: 560px){
+    .nav-row{ padding: 14px 16px; }
+    .nav-links{ gap: 14px; }
+    .nav-links a{ font-size: 9.5px; letter-spacing: 0.04em; }
+  }
+
+  :focus-visible{ outline: 2px solid var(--fg); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<div class="horizon">
+  <div class="nav-row">
+    <a href="#top" class="mark"><span>Sebastián Weisz — Arquitecto</span></a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#interiorismo">Interiorismo</a></li>
+      <li><a href="#estudio">Estudio</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </div>
+  <div class="horizon-line"></div>
+</div>
+
+<div id="top"></div>
+
+<section class="hero" style="padding:0;">
+  <div class="hero-frame">
+    <img src="images/hero.jpg" alt="Imagen principal del estudio">
+  </div>
+</section>
+
+<section id="estudio">
+  <div class="wrap statement reveal">
+  </div>
+</section>
+
+<section id="proyectos" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="projects-head reveal">
+      <h2>Proyectos</h2>
+    </div>
+  </div>
+
+  <div class="carousel-outer reveal">
+    <div class="carousel-track">
+      <div class="carousel-item"><span class="carousel-idx">01</span><img src="images/benquerencia-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Benquerencia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/benquerencia-02.jpg" alt=""><span class="carousel-caption">Benquerencia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/benquerencia-03.jpg" alt=""><span class="carousel-caption">Benquerencia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/benquerencia-04.jpg" alt=""><span class="carousel-caption">Benquerencia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/benquerencia-05.jpg" alt=""><span class="carousel-caption">Benquerencia</span></div>
+      <div class="carousel-item"><span class="carousel-idx">02</span><img src="images/arenas-de-jose-ignacio-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/arenas-de-jose-ignacio-02.jpg" alt=""><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/arenas-de-jose-ignacio-03.jpg" alt=""><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/arenas-de-jose-ignacio-04.jpg" alt=""><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/arenas-de-jose-ignacio-05.jpg" alt=""><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/arenas-de-jose-ignacio-06.jpg" alt=""><span class="carousel-caption">Arenas de José Ignacio</span></div>
+      <div class="carousel-item"><span class="carousel-idx">03</span><img src="images/talar-del-lago-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Talar del lago</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/talar-del-lago-02.jpg" alt=""><span class="carousel-caption">Talar del lago</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/talar-del-lago-03.jpg" alt=""><span class="carousel-caption">Talar del lago</span></div>
+      <div class="carousel-item"><span class="carousel-idx">04</span><img src="images/san-miguel-del-monte-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">San Miguel del Monte</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/san-miguel-del-monte-02.jpg" alt=""><span class="carousel-caption">San Miguel del Monte</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img style="object-position: 50% 71%;" src="images/san-miguel-del-monte-03.jpg" alt=""><span class="carousel-caption">San Miguel del Monte</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/san-miguel-del-monte-04.jpg" alt=""><span class="carousel-caption">San Miguel del Monte</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/san-miguel-del-monte-05.jpg" alt=""><span class="carousel-caption">San Miguel del Monte</span></div>
+      <div class="carousel-item"><span class="carousel-idx">05</span><img src="images/el-chalten-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">El Chalten</span></div>
+      <div class="carousel-item"><span class="carousel-idx">06</span><img src="images/eolo-ushuaia-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Eolo Ushuaia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/eolo-ushuaia-02.jpg" alt=""><span class="carousel-caption">Eolo Ushuaia</span></div>
+      <div class="carousel-item"><span class="carousel-idx">07</span><img src="images/el-tunel-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">El Túnel</span></div>
+      <div class="carousel-item"><span class="carousel-idx">08</span><img src="images/zarate-mall-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Zárate Mall</span></div>
+      <div class="carousel-item"><span class="carousel-idx">09</span><img src="images/el-chaja-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">El Chaja</span></div>
+      <div class="carousel-item"><span class="carousel-idx">10</span><img src="images/lourdes-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Lourdes</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/lourdes-02.jpg" alt=""><span class="carousel-caption">Lourdes</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/lourdes-03.jpg" alt=""><span class="carousel-caption">Lourdes</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chaja-02.jpg" alt=""><span class="carousel-caption">El Chaja</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chaja-03.jpg" alt=""><span class="carousel-caption">El Chaja</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/zarate-mall-02.jpg" alt=""><span class="carousel-caption">Zárate Mall</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/zarate-mall-03.jpg" alt=""><span class="carousel-caption">Zárate Mall</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-tunel-02.jpg" alt=""><span class="carousel-caption">El Túnel</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-tunel-03.jpg" alt=""><span class="carousel-caption">El Túnel</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-tunel-04.jpg" alt=""><span class="carousel-caption">El Túnel</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-tunel-05.jpg" alt=""><span class="carousel-caption">El Túnel</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/eolo-ushuaia-03.jpg" alt=""><span class="carousel-caption">Eolo Ushuaia</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chalten-02.jpg" alt=""><span class="carousel-caption">El Chalten</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chalten-03.jpg" alt=""><span class="carousel-caption">El Chalten</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chalten-04.jpg" alt=""><span class="carousel-caption">El Chalten</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/el-chalten-05.jpg" alt=""><span class="carousel-caption">El Chalten</span></div>
+      <div class="carousel-item"><span class="carousel-idx">11</span><img src="images/las-portuguesas-01.jpg" alt="Vivienda proyectada por el estudio, vista exterior"><span class="carousel-caption">Las Portuguesas</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/las-portuguesas-02.jpg" alt=""><span class="carousel-caption">Las Portuguesas</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/las-portuguesas-03.jpg" alt=""><span class="carousel-caption">Las Portuguesas</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/las-portuguesas-04.jpg" alt=""><span class="carousel-caption">Las Portuguesas</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/las-portuguesas-05.jpg" alt=""><span class="carousel-caption">Las Portuguesas</span></div>
+
+    </div>
+  </div>
+</section>
+
+<section id="interiorismo" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="projects-head reveal">
+      <h2>Interiorismo</h2>
+    </div>
+  </div>
+
+  <div class="carousel-outer reveal">
+    <div class="carousel-track">
+      <div class="carousel-item"><span class="carousel-idx">01</span><img src="images/11-prince-st-ny-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">11 Prince St. NY</span></div>
+      <div class="carousel-item"><span class="carousel-idx">02</span><img src="images/parera-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">Parera</span></div>
+      <div class="carousel-item"><span class="carousel-idx">03</span><img src="images/posadas-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">Posadas</span></div>
+      <div class="carousel-item"><span class="carousel-idx">04</span><img src="images/kennedy-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">Kennedy</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/kennedy-02.jpg" alt=""><span class="carousel-caption">Kennedy</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/kennedy-03.jpg" alt=""><span class="carousel-caption">Kennedy</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/kennedy-04.jpg" alt=""><span class="carousel-caption">Kennedy</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/kennedy-05.jpg" alt=""><span class="carousel-caption">Kennedy</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/posadas-02.jpg" alt=""><span class="carousel-caption">Posadas</span></div>
+      <div class="carousel-item"><span class="carousel-idx">05</span><img src="images/quintana-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/quintana-02.jpg" alt=""><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/quintana-03.jpg" alt=""><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/quintana-04.jpg" alt=""><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/quintana-05.jpg" alt=""><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/quintana-06.jpg" alt=""><span class="carousel-caption">Quintana</span></div>
+      <div class="carousel-item"><span class="carousel-idx">06</span><img src="images/rodriguez-pena-01.jpg" alt="Espacio interior proyectado por el estudio"><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-02.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-03.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-04.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-05.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-06.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+      <div class="carousel-item hidden-extra" aria-hidden="true"><img src="images/rodriguez-pena-07.jpg" alt=""><span class="carousel-caption">Rodriguez Peña</span></div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="contact">
+  <div class="wrap">
+    <div>
+      <div class="contact-links">
+        <a href="mailto:sebastianweisz@gmail.com">sebastianweisz@gmail.com <small>Escribir</small></a>
+        <a href="#top">Buenos Aires, Argentina <small>Estudio</small></a>
+      </div>
+    </div>
+    <div class="contact-side">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-mark">
+      
+      <span>Sebastián Weisz, Arquitecto</span>
+    </div>
+    <span>Buenos Aires, Argentina</span>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div class="project-page" id="project-page">
+  <button class="project-page-close" aria-label="Cerrar">&times;</button>
+  <div class="project-page-hero">
+    <img id="project-page-hero-img" src="" alt="">
+  </div>
+  <div class="project-page-body">
+    <h2 class="project-page-title" id="project-page-title"></h2>
+    <p class="project-page-meta" id="project-page-meta"></p>
+    <div class="project-page-text" id="project-page-text"></div>
+    <div class="project-page-gallery" id="project-page-gallery"></div>
+  </div>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+  // ---------- Lightbox: ver la foto más grande al tocarla/clickearla ----------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.querySelector('.lightbox-close');
+
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e)=>{
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // ---------- Página de proyecto: al clickear una foto de "Proyectos" ----------
+  const projectPage = document.getElementById('project-page');
+  const projectPageClose = document.querySelector('.project-page-close');
+  const projectPageHeroImg = document.getElementById('project-page-hero-img');
+  const projectPageTitle = document.getElementById('project-page-title');
+  const projectPageMeta = document.getElementById('project-page-meta');
+  const projectPageText = document.getElementById('project-page-text');
+  const projectPageGallery = document.getElementById('project-page-gallery');
+  projectPageHeroImg.style.cursor = 'zoom-in';
+  projectPageHeroImg.addEventListener('click', ()=> openLightbox(projectPageHeroImg.src, projectPageHeroImg.alt));
+
+  function placeholderText(name){
+    return [
+      `Vivienda unifamiliar proyectada por el estudio en ${name}.`,
+      'Texto del proyecto próximamente: memoria descriptiva, superficie construida, materiales utilizados y detalles del encargo.'
+    ];
+  }
+
+  function openProjectPage(name, heroSrc, gallerySrcs){
+    projectPageHeroImg.src = heroSrc;
+    projectPageHeroImg.alt = name;
+    projectPageTitle.textContent = name;
+    projectPageMeta.textContent = 'Vivienda unifamiliar — Buenos Aires';
+    projectPageText.innerHTML = '';
+    placeholderText(name).forEach(t=>{
+      const p = document.createElement('p');
+      p.textContent = t;
+      projectPageText.appendChild(p);
+    });
+    projectPageGallery.innerHTML = '';
+    gallerySrcs.forEach(src=>{
+      const div = document.createElement('div');
+      const img = document.createElement('img');
+      img.src = src; img.alt = name;
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', ()=> openLightbox(img.src, img.alt));
+      div.appendChild(img);
+      projectPageGallery.appendChild(div);
+    });
+    projectPage.classList.add('open');
+    projectPage.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProjectPage(){
+    projectPage.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  projectPageClose.addEventListener('click', closeProjectPage);
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'Escape') closeProjectPage();
+  });
+
+  // Agrupar las fotos de "Proyectos" e "Interiorismo" por nombre (mismo nombre = misma página)
+  const proyectosItems = Array.from(document.querySelectorAll('#proyectos .carousel-item, #interiorismo .carousel-item'));
+  const groups = {};
+  proyectosItems.forEach(item=>{
+    const name = item.querySelector('.carousel-caption')?.textContent?.trim();
+    const src = item.querySelector('img')?.src;
+    if (!name || !src) return;
+    if (!groups[name]) groups[name] = [];
+    groups[name].push(src);
+  });
+  proyectosItems.forEach(item=>{
+    const img = item.querySelector('img');
+    const name = item.querySelector('.carousel-caption')?.textContent?.trim();
+    if (!img || !name) return;
+    img.addEventListener('click', ()=>{
+      const all = groups[name] || [img.src];
+      const gallery = all.filter(s=> s !== img.src);
+      openProjectPage(name, img.src, gallery);
+    });
+  });
+
+  // La foto principal ahora solo se agranda en el lightbox (ya no tiene leyenda/nombre de proyecto)
+  const heroImg = document.querySelector('.hero-frame img');
+  if (heroImg){
+    heroImg.style.cursor = 'zoom-in';
+    heroImg.addEventListener('click', ()=> openLightbox(heroImg.src, heroImg.alt));
+  }
+</script>
+
+</body>
+</html>
